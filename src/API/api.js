@@ -7,5 +7,9 @@ const instance = axios.create({
 export const weatherApi = {
     byCityName(city){
         return instance.get(`weather?q=${city}&units=metric&lang=ru&appid=b81543affaecbb62ec96a57263178ff4`)
+    },
+    forWeek(city){
+        return instance.get(`forecast?q=${city}&lang=ru&units=metric&appid=b81543affaecbb62ec96a57263178ff4`)
+            .then( res => res.data.list )
     }
 }

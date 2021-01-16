@@ -41,10 +41,10 @@ const SetWeather = (weather) => ({type: SET_WEATHER, weather})
 const IsFetching = (isFetching) => ({type: IS_FEATCHING, isFetching})
 const IsError = (error) => ({type: IS_ERROR, error})
 
-export const SetWeatherThunk = () => async (dispatch) => {
+export const SetWeatherThunk = (city) => async (dispatch) => {
     dispatch(IsFetching(true))
-    let response = await weatherApi.byCityName('Minsk')
-    if (response.status == 200) {
+    let response = await weatherApi.byCityName(city)
+    if (response.status === 200) {
         dispatch(SetWeather(response))
     } else {
 

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {connect} from "react-redux";
 import {compose} from "redux";
 
@@ -6,27 +6,35 @@ import {compose} from "redux";
 
 
 import s from './App.module.css'
-import {weatherApi} from "./API/api";
-import sun from './img/cloudy-day.svg';
-import Preloader from "./Components/preloader/Preloader";
+
 import {SetWeatherThunk} from "./Redux/reducers/ForecastReducer";
 import ErrorMessage from "./Components/ErrorMessage/ErrorMessage";
+import InputCity from "./Components/InputCity/InputCity";
+import Preloader from "./Components/preloader/Preloader";
+import WeatherCity from "./Components/WeatherCity/WeatherCity";
 
 
 function AppContainer(props) {
 
-    console.log('props', props)
-
-  useEffect(() => {
-      props.SetWeatherThunk()
-  }, [])
 
   return (
       <div className={s.app}>
            <div className={s.wrap}>
+
+
+               <InputCity
+                   weather={props.weather}
+                   isFetching={props.isFetching}
+                   SetWeatherThunk={props.SetWeatherThunk}
+               />
                {!!props.isFetching && <Preloader />}
-               {!props.isFetching && !props.isError && <img src={sun} alt="sun"/>}
+
+                              <button onClick={() => {
+                   console.log(props.weather)
+               }}>dddd</button>
                {!!props.isError && <ErrorMessage error={props.weather.status} /> }
+               {(props.weather.status === 200) && <WeatherCity weather={props.weather} />
+               }
 
 
           </div>
