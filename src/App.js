@@ -1,46 +1,57 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {connect} from "react-redux";
 import {compose} from "redux";
-
-
 
 
 import s from './App.module.css'
 
 import {SetWeatherThunk} from "./Redux/reducers/ForecastReducer";
-import ErrorMessage from "./Components/ErrorMessage/ErrorMessage";
 import InputCity from "./Components/InputCity/InputCity";
 import Preloader from "./Components/preloader/Preloader";
 import WeatherCity from "./Components/WeatherCity/WeatherCity";
+import Loader from "./Components/Loader/Loader";
+import AppWithLoclStorage from "./Components/AppWithLocalStorage/AppWithLoclStorage";
 
 
 function AppContainer(props) {
 
+    if (!localStorage.getItem('weatherslavalobikov')) {
+        localStorage.setItem('weatherslavalobikov', '')
+    }
+    if (!!localStorage.getItem('weatherslavalobikov') && localStorage.getItem('weatherslavalobikov') !== '') {
+        //props.SetWeatherThunk(localStorage.getItem('weatherslavalobikov'))
+        return  (
+            <AppWithLoclStorage
+                weather={props.weather}
+                isFetching={props.isFetching}
+                SetWeatherThunk={props.SetWeatherThunk} />
+        )
 
-  return (
-      <div className={s.app}>
-           <div className={s.wrap}>
-
-
-               <InputCity
-                   weather={props.weather}
-                   isFetching={props.isFetching}
-                   SetWeatherThunk={props.SetWeatherThunk}
-               />
-               {!!props.isFetching && <Preloader />}
-
-                              <button onClick={() => {
-                   console.log(props.weather)
-               }}>dddd</button>
-               {!!props.isError && <ErrorMessage error={props.weather.status} /> }
-               {(props.weather.status === 200) && <WeatherCity weather={props.weather} />
-               }
+    }
 
 
-          </div>
 
-      </div>
-  );
+    return (
+        <div className={s.app}>
+            <div className={s.wrap}>
+
+
+                <InputCity
+                    weather={props.weather}
+                    isFetching={props.isFetching}
+                    SetWeatherThunk={props.SetWeatherThunk}
+                />
+                {!!props.isFetching && <Preloader/>}
+
+
+                {(props.weather.status === 200) && <WeatherCity weather={props.weather}/>
+                }
+
+
+            </div>
+
+        </div>
+    );
 }
 
 let mapStateToProps = (state) => ( {

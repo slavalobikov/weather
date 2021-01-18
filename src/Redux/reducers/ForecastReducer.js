@@ -46,8 +46,8 @@ export const SetWeatherThunk = (city) => async (dispatch) => {
     let response = await weatherApi.byCityName(city)
     if (response.status === 200) {
         dispatch(SetWeather(response))
+        localStorage.setItem('weatherslavalobikov', response.data.name)
     } else {
-
         dispatch(IsError(true))
     }
 
