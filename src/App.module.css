@@ -19,3 +19,11 @@
   width: 100px;
   height: 100px;
 }
+
+@media (max-width: 650px) {
+  .wrap {
+    height: 100vh;
+    width: 100vw;
+    border-radius: 0;
+  }
+}
