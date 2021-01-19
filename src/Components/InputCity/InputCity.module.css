@@ -16,6 +16,9 @@
 
 .city{
     cursor:pointer;
+    /*
     opacity:70%;
+    */
+    color:grey;
     font-style: italic;
 }
