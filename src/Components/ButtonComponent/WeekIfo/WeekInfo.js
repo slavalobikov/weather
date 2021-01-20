@@ -49,6 +49,7 @@ class WeekInfo extends React.Component {
                 tomorrowTomorrow.push(el)
             }
         })
+        console.log('tomorrow', tomorrow)
 
 
         return (
