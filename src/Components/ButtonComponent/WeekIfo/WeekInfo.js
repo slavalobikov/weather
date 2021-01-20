@@ -67,7 +67,7 @@ class WeekInfo extends React.Component {
                                 </Button></div>
 
                                 <div className={s.todayInfo}>
-                                    <h1>Сегодня {v1}</h1>
+                                    <h1>Сегодня v1</h1>
 
                                     <div className={s.today}>
                                         {today.map(el => (
