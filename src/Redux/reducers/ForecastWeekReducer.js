@@ -33,20 +33,11 @@ const ForecastWeekReducer = (state = initialState, action) => {
             }
         }
         case TODAY: {
-            let Today = [];
-            let arrWithoutToday = [];
 
-            action.today.forEach(el => {
-                if (new Date(action.today[0].dt_txt).getDate() === new Date(el.dt_txt).getDate()) {
-                    Today.push(el)
-                } else {
-                    arrWithoutToday.push(el)
-                }
-            })
 
             return {
                 ...state,
-                today: Today
+                today: action.today
             }
         }
         case SET_TOMORROW: {
@@ -61,7 +52,6 @@ const ForecastWeekReducer = (state = initialState, action) => {
                 tomorrowTomorrow:action.tomorrowTomorrow
             }
         }
-
         default:
             return state
     }
@@ -79,13 +69,21 @@ export const SetWeatherWeekThunk = (city) => async (dispatch) => {
     dispatch(IsFeatchingWeek(true))
     let response = await weatherApi.forWeek(city)
     dispatch(SetWeatherWeek(response))
-    dispatch(SetToday(response))
 
-    /*    let Today = [];
+        let Today = [];
     let arrWithoutToday = [];
     let Tomorrow = [];
     let arrWithoutTodayAndTomorrow = [];
     let TomorrowTomorrow = [];
+    console.log('length',response.length)
+    for (let i = 0;  i< response.length - 1; i++) {
+        if (new Date(response[0].dt_txt).getDate() === new Date(response[i].dt_txt).getDate()) {
+            Today.push(response[i])
+        } else {
+            arrWithoutToday.push(response[i])
+        }
+    }
+/*
     response.forEach(el => {
         if (new Date(response[0].dt_txt).getDate() === new Date(el.dt_txt).getDate()) {
             Today.push(el)
@@ -93,6 +91,7 @@ export const SetWeatherWeekThunk = (city) => async (dispatch) => {
             arrWithoutToday.push(el)
         }
     })
+*/
     dispatch(SetToday(Today))
     arrWithoutToday.forEach(el => {
         if (new Date(arrWithoutToday[0].dt_txt).getDate() === new Date(el.dt_txt).getDate()) {
@@ -108,7 +107,7 @@ export const SetWeatherWeekThunk = (city) => async (dispatch) => {
             TomorrowTomorrow.push(el)
         }
     })
-    dispatch(SetTomorrowTomorrow(TomorrowTomorrow));*/
+    dispatch(SetTomorrowTomorrow(TomorrowTomorrow));
 
     dispatch(IsFeatchingWeek(false))
 }
