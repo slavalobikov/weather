@@ -33,9 +33,20 @@ const ForecastWeekReducer = (state = initialState, action) => {
             }
         }
         case TODAY: {
+            let Today = [];
+            let arrWithoutToday = [];
+
+            action.today.forEach(el => {
+                if (new Date(action.today[0].dt_txt).getDate() === new Date(el.dt_txt).getDate()) {
+                    Today.push(el)
+                } else {
+                    arrWithoutToday.push(el)
+                }
+            })
+
             return {
                 ...state,
-                today: action.today
+                today: Today
             }
         }
         case SET_TOMORROW: {
@@ -68,7 +79,9 @@ export const SetWeatherWeekThunk = (city) => async (dispatch) => {
     dispatch(IsFeatchingWeek(true))
     let response = await weatherApi.forWeek(city)
     dispatch(SetWeatherWeek(response))
-    let Today = [];
+    dispatch(SetToday(response))
+
+    /*    let Today = [];
     let arrWithoutToday = [];
     let Tomorrow = [];
     let arrWithoutTodayAndTomorrow = [];
@@ -95,7 +108,7 @@ export const SetWeatherWeekThunk = (city) => async (dispatch) => {
             TomorrowTomorrow.push(el)
         }
     })
-    dispatch(SetTomorrowTomorrow(TomorrowTomorrow));
+    dispatch(SetTomorrowTomorrow(TomorrowTomorrow));*/
 
     dispatch(IsFeatchingWeek(false))
 }
