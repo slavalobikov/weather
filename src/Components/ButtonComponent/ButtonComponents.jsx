@@ -4,7 +4,7 @@ import {Button} from 'antd';
 
 import MoreInfo from "./MoreInfo/MoreInfo";
 import s from './ButtonComponent.module.css';
-import WeekInfo from "./WeekIfo/WeekInfo.js";
+import WeekInfo from "./WeekIfo/WeekInfoContainer.js";
 
 function ButtonComponents(props) {
 

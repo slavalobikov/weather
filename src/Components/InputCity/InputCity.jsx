@@ -12,8 +12,10 @@ const InputCity = (props) => {
 
 
     const onSearch = value => {
+        if (value === '') {
+            return
+        }
         props.SetWeatherThunk(value)
-        console.log('weather', props.weather)
         setInput(false)
     };
 

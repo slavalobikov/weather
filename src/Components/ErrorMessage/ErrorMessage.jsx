@@ -10,7 +10,7 @@ const ErrorMessage = ({error}) => {
     return (
         <div className={s.ErrorMessage}>
             <div className={s.Icon}><WarningOutlined /></div>
-            <div>Произошла ошибка! <span>Код ошибки: {error}</span></div>
+            <div>Произошла некоторая  ошибка! <span>Возможно вы ввели не коректный поисковой запрос</span></div>
         </div>
     );
 };

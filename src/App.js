@@ -9,6 +9,7 @@ import InputCity from "./Components/InputCity/InputCity";
 import Preloader from "./Components/preloader/Preloader";
 import WeatherCity from "./Components/WeatherCity/WeatherCity";
 import AppWithLoclStorage from "./Components/AppWithLocalStorage/AppWithLoclStorage";
+import ErrorMessage from "./Components/ErrorMessage/ErrorMessage";
 
 
 function AppContainer(props) {
@@ -21,13 +22,15 @@ function AppContainer(props) {
             <AppWithLoclStorage
                 weather={props.weather}
                 isFetching={props.isFetching}
-                SetWeatherThunk={props.SetWeatherThunk} />
+                SetWeatherThunk={props.SetWeatherThunk}
+                isError={props.isError}
+            />
         )
 
     }
 
 
-
+    console.log(props)
     return (
         <div className={s.app}>
             <div className={s.wrap}>
@@ -39,6 +42,8 @@ function AppContainer(props) {
                     SetWeatherThunk={props.SetWeatherThunk}
                 />
                 {!!props.isFetching && <Preloader/>}
+
+                {!!props.isError && <ErrorMessage />}
 
 
                 {(props.weather.status === 200) && <WeatherCity weather={props.weather}/>

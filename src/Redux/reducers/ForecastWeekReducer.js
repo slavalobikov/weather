@@ -1,7 +1,7 @@
 import {weatherApi} from "../../API/api";
 
-const SET_WEATHER_WEEK = 'SET_WEATHER_WEEK';
-const IS_FEATCHING_WEEK = 'IS_FEATCHING_WEEK';
+const SET_WEATHER_WEEK = 'forecast-week/SET_WEATHER_WEEK';
+const IS_FEATCHING_WEEK = 'forecast-week/IS_FEATCHING_WEEK';
 
 
 

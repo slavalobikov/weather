@@ -4,6 +4,7 @@ import Preloader from "../preloader/Preloader";
 import WeatherCity from "../WeatherCity/WeatherCity";
 
 import s from './../../App.module.css';
+import ErrorMessage from "../ErrorMessage/ErrorMessage";
 
 class AppWithLoclStorage extends React.Component {
 
@@ -24,6 +25,8 @@ class AppWithLoclStorage extends React.Component {
                         SetWeatherThunk={this.props.SetWeatherThunk}
                     />
                     {!!this.props.isFetching && <Preloader/>}
+                    {!!this.props.isError && <ErrorMessage />}
+
 
 
                     {(this.props.weather.status === 200) && <WeatherCity weather={this.props.weather}/>

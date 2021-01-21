@@ -1,8 +1,8 @@
 import {weatherApi} from "../../API/api";
 
-const SET_WEATHER = 'SET_WEATHER';
-const IS_FEATCHING = 'IS_FEATCHING';
-const IS_ERROR = 'IS_ERROR'
+const SET_WEATHER = 'forecast/SET_WEATHER';
+const IS_FEATCHING = 'forecast/IS_FEATCHING';
+const IS_ERROR = 'forecast/IS_ERROR'
 
 let initialState = {
     isFetching: null,
@@ -42,17 +42,20 @@ const IsFetching = (isFetching) => ({type: IS_FEATCHING, isFetching})
 const IsError = (error) => ({type: IS_ERROR, error})
 
 export const SetWeatherThunk = (city) => async (dispatch) => {
-    dispatch(IsFetching(true))
-    let response = await weatherApi.byCityName(city)
-    if (response.status === 200) {
-        dispatch(SetWeather(response))
-        localStorage.setItem('weatherslavalobikov', response.data.name)
-    } else {
+    try {
+        dispatch(IsFetching(true))
+        let response = await weatherApi.byCityName(city)
+        if (response.status === 200) {
+            dispatch(IsError(false))
+            dispatch(SetWeather(response))
+            localStorage.setItem('weatherslavalobikov', response.data.name)
+        }
+        dispatch(IsFetching(false))
+    } catch (err) {
         dispatch(IsError(true))
+        dispatch(IsFetching(false))
     }
 
-
-    dispatch(IsFetching(false))
 
 
 }
