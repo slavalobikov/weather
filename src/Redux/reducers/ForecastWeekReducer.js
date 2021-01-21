@@ -75,15 +75,6 @@ export const SetWeatherWeekThunk = (city) => async (dispatch) => {
     let Tomorrow = [];
     let arrWithoutTodayAndTomorrow = [];
     let TomorrowTomorrow = [];
-    console.log('length',response.length)
-    for (let i = 0;  i< response.length - 1; i++) {
-        if (new Date(response[0].dt_txt).getDate() === new Date(response[i].dt_txt).getDate()) {
-            Today.push(response[i])
-        } else {
-            arrWithoutToday.push(response[i])
-        }
-    }
-/*
     response.forEach(el => {
         if (new Date(response[0].dt_txt).getDate() === new Date(el.dt_txt).getDate()) {
             Today.push(el)
@@ -91,7 +82,6 @@ export const SetWeatherWeekThunk = (city) => async (dispatch) => {
             arrWithoutToday.push(el)
         }
     })
-*/
     dispatch(SetToday(Today))
     arrWithoutToday.forEach(el => {
         if (new Date(arrWithoutToday[0].dt_txt).getDate() === new Date(el.dt_txt).getDate()) {
