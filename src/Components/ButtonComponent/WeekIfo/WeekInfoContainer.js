@@ -1,27 +1,27 @@
 import React from 'react';
 import ReactDOM from "react-dom";
 import {connect} from "react-redux";
-import {Button} from "antd";
-import classNames from 'classnames';
 
 
 
-import s from './WeekInfo.module.css';
-import Loader from "../../Loader/Loader";
+
+
 import {SetWeatherWeekThunk} from "../../../Redux/reducers/ForecastWeekReducer";
-import InfoWeatherCard from "./InfoWeatherCard/InfoWeatherCard";
 import WeekInfo from "./WeekInfo";
 
-class WeekInfoContainer extends React.Component {
+class WeekInfoContainer extends React.PureComponent {
 
     componentDidMount() {
         this.props.SetWeatherWeekThunk(this.props.name)
     }
 
 
-    render() {
 
-        let today = [];
+    render() {
+        console.log('today', this.props.today)
+        console.log('tomorrow', this.props.tomorrow)
+
+        /*let today = [];
         let arrWithoutToday = [];
         let tomorrow = [];
         let arrWithoutTodayAndTomorrow = [];
@@ -48,15 +48,18 @@ class WeekInfoContainer extends React.Component {
             }
         })
         console.log('tomorrow', tomorrow)
-
+*/
 
         return (
             <div>
                 {ReactDOM.createPortal(
                     <WeekInfo isFetching={this.props.isFetching}
                               setWeek={this.props.setWeek}
-                              today={today} tomorrow={tomorrow}
-                              tomorrowTomorrow={tomorrowTomorrow} />,
+                              today={this.props.today}
+                              tomorrow={this.props.tomorrow}
+                              tomorrowTomorrow={this.props.tomorrowTomorrow}
+                              /*today={today} tomorrow={tomorrow}
+                              tomorrowTomorrow={tomorrowTomorrow}*/ />,
                     document.getElementById('modalWeek')
                 )}
             </div>
@@ -67,6 +70,9 @@ class WeekInfoContainer extends React.Component {
 let mapStateToProps = (state) => ( {
     weatherWeek:state.ForecastWeekReducer.weatherWeek,
     isFetching:state.ForecastWeekReducer.isFetching,
+    today:state.ForecastWeekReducer.today,
+    tomorrow: state.ForecastWeekReducer.tomorrow,
+    tomorrowTomorrow: state.ForecastWeekReducer.tomorrowTomorrow,
 });
 
 export default connect(mapStateToProps, {

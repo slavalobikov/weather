@@ -20,7 +20,7 @@ const WeekInfo = ({isFetching, setWeek, today, tomorrow, tomorrowTomorrow }) => 
                 </Button></div>
 
                 <div className={s.todayInfo}>
-                    <h1>Сегодня v2</h1>
+                    <h1>Сегодня v3</h1>
 
                     <div className={s.today}>
                         {today.map(el => (
@@ -69,6 +69,7 @@ const WeekInfo = ({isFetching, setWeek, today, tomorrow, tomorrowTomorrow }) => 
                         )}
                     </div>
                 </div>
+
             </div>
             }
         </div>
